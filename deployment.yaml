@@ -1,36 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: active-mq
+  name: artemis
   labels:
-    app: active-mq
+    app: artemis
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: active-mq
+      app: artemis
   template:
     metadata:
       labels:
-        app: active-mq
+        app: artemis
     spec:
       containers:
-        - image: [name-of-my-image-from-docker-hub]
-          name: active-mq
+        - image: hhuaranga/artemis
+          name: artemis
           imagePullPolicy: Always
-          resources:
-            requests:
-              memory: 500Mi
-              cpu: 200m
-            limits:
-              memory: 1000Mi
-              cpu: 400m
-          volumeMounts:
-          - name: active-creds
-            mountPath: /home/alpine/apache-activemq-5.15.10/conf/jetty-realm.properties
-            subPath: jetty-realm.properties
-      volumes:
-      - name: active-creds
-        secret:
-          secretName: creds
       restartPolicy: Always
